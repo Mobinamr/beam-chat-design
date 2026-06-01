@@ -3,61 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Chat Progress Beam</title>
+    <title>Beam Progress Design</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Main chat window simulation -->
-    <div class="chat-container">
-        <div class="chat-header">
-            <div class="chat-title">AI Assistant</div>
-        </div>
-        <div class="chat-messages">
-            <div class="message user-message">
-                Write a comprehensive analysis of quantum computing...
-            </div>
-            <div class="message ai-message typing">
-                <div class="typing-indicator">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+    <!-- Core beam design centered -->
+    <div class="design-showcase">
+
+        <!-- Main beam component -->
+        <div id="progress-beam" class="progress-beam active">
+            <div class="beam-content">
+                <div class="beam-bar">
+                    <div class="beam-fill"></div>
+                </div>
+                <div class="beam-info">
+                    <span class="beam-percentage">0%</span>
+                    <span class="beam-time">Est. 45s</span>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Progress beam - shows when tab is inactive -->
-    <div id="progress-beam" class="progress-beam">
-        <div class="beam-content">
-            <div class="beam-bar">
-                <div class="beam-fill"></div>
+        <!-- Preview panel component -->
+        <div id="preview-panel" class="preview-panel">
+            <div class="preview-header">
+                <span>AI Processing</span>
+                <div class="preview-status">Active</div>
             </div>
-            <div class="beam-info">
-                <span class="beam-percentage">0%</span>
-                <span class="beam-time">Est. 45s</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Hover preview panel -->
-    <div id="preview-panel" class="preview-panel">
-        <div class="preview-header">
-            <span>AI Assistant</span>
-            <div class="preview-status">Processing...</div>
-        </div>
-        <div class="preview-content">
-            <div class="preview-message">
-                <p class="preview-text"></p>
-                <div class="preview-typing">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+            <div class="preview-content">
+                <div class="preview-message">
+                    <p class="preview-text"></p>
+                    <div class="preview-typing">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                 </div>
             </div>
+            <div class="preview-footer">
+                <span class="preview-progress">0% Complete</span>
+            </div>
         </div>
-        <div class="preview-footer">
-            <span class="preview-progress">0% Complete</span>
-        </div>
+
     </div>
 
     <script src="script.js"></script>

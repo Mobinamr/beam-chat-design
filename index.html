@@ -3,33 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anthropic Claude Progress</title>
-
-    <!-- Google Fonts: Poppins (sans) for headings, Lora (serif) for body -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
-
+    <title>Claude Progress Design</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Anthropic Claude container -->
-    <div class="anthropic-container">
-        <!-- Progress beam with Anthropic branding -->
-        <div class="anthropic-beam" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-            <div class="beam-container">
-                <h2 class="beam-title">Claude is thinking</h2>
-                <div class="beam-track">
-                    <div class="beam-fill"></div>
+    <div class="design-container">
+        <!-- Empty State -->
+        <div class="progress-card">
+            <div class="card-label">Empty State</div>
+            <div class="progress-bar">
+                <div class="progress-track">
+                    <div class="progress-fill" style="width: 0%"></div>
                 </div>
-                <div class="beam-footer">
-                    <span class="beam-status">Processing your request</span>
-                    <span class="beam-percentage">0%</span>
+                <span class="progress-text">0%</span>
+            </div>
+        </div>
+
+        <!-- Full State -->
+        <div class="progress-card">
+            <div class="card-label">Full State</div>
+            <div class="progress-bar">
+                <div class="progress-track">
+                    <div class="progress-fill" style="width: 100%"></div>
                 </div>
+                <span class="progress-text">100%</span>
             </div>
         </div>
     </div>
-
-    <script src="script.js"></script>
 </body>
 </html>

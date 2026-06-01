@@ -1,67 +1,78 @@
-// Claude light mode progress animation with random speed variations
+// Anthropic-branded progress animation with Claude-like behavior
 let progress = 0;
 let animationFrame = null;
-let currentSpeed = 0.3;
-let targetSpeed = 0.3;
+let currentSpeed = 0.25;
+let targetSpeed = 0.25;
 
-const beamProgress = document.querySelector('.beam-progress');
+const beamFill = document.querySelector('.beam-fill');
+const beamTitle = document.querySelector('.beam-title');
 const beamStatus = document.querySelector('.beam-status');
-const claudeBeam = document.querySelector('.claude-beam');
-const claudeLogo = document.querySelector('.claude-logo');
+const beamPercentage = document.querySelector('.beam-percentage');
+const anthropicBeam = document.querySelector('.anthropic-beam');
+const anthropicLogo = document.querySelector('.anthropic-logo');
 
-// Speed profiles matching Claude's actual processing patterns
+// Speed profiles for realistic AI processing
 const speedProfiles = [
-    { speed: 0.08, duration: 1400 },  // Very slow - deep thinking
-    { speed: 0.2, duration: 1000 },   // Slow - careful processing
-    { speed: 1.0, duration: 400 },    // Fast burst - quick processing
-    { speed: 0.02, duration: 1800 },  // Almost paused - contemplating
-    { speed: 0.5, duration: 700 },    // Medium speed
-    { speed: 0.12, duration: 1100 },  // Slow-medium
-    { speed: 1.3, duration: 300 },    // Very fast burst
-    { speed: 0.35, duration: 800 },   // Medium-slow
-    { speed: 0.03, duration: 1500 },  // Very slow pause
+    { speed: 0.06, duration: 1600 },  // Very slow - deep analysis
+    { speed: 0.18, duration: 1100 },  // Slow - careful processing
+    { speed: 0.85, duration: 500 },   // Fast burst - quick retrieval
+    { speed: 0.02, duration: 2000 },  // Almost stopped - contemplating
+    { speed: 0.45, duration: 800 },   // Medium speed
+    { speed: 0.1, duration: 1300 },   // Slow crawl
+    { speed: 1.1, duration: 350 },    // Very fast
+    { speed: 0.3, duration: 900 },    // Medium-slow
 ];
 
-let nextSpeedChange = Date.now() + 800;
+let nextSpeedChange = Date.now() + 1000;
 let currentProfile = speedProfiles[Math.floor(Math.random() * speedProfiles.length)];
 
-// Claude-like status messages
-const statusMessages = [
-    "Thinking",
-    "Processing",
-    "Analyzing",
-    "Understanding",
-    "Generating"
+// Claude-style thinking messages
+const thinkingMessages = [
+    "Claude is thinking",
+    "Claude is analyzing",
+    "Claude is processing",
+    "Claude is understanding",
+    "Claude is generating"
 ];
 
-let currentStatusIndex = 0;
-let nextStatusChange = Date.now() + 2500;
+const statusMessages = [
+    "Processing your request",
+    "Analyzing the context",
+    "Understanding the query",
+    "Formulating response",
+    "Generating insights"
+];
+
+let currentMessageIndex = 0;
+let nextMessageChange = Date.now() + 3000;
 
 function animate() {
-    // Random speed changes
-    if (Date.now() > nextSpeedChange && progress < 93) {
+    // Change speed randomly for realistic processing
+    if (Date.now() > nextSpeedChange && progress < 94) {
         currentProfile = speedProfiles[Math.floor(Math.random() * speedProfiles.length)];
         targetSpeed = currentProfile.speed;
-        nextSpeedChange = Date.now() + currentProfile.duration + (Math.random() * 400);
+        nextSpeedChange = Date.now() + currentProfile.duration + (Math.random() * 500);
     }
 
-    // Change status message
-    if (Date.now() > nextStatusChange && progress < 85) {
-        currentStatusIndex = (currentStatusIndex + 1) % statusMessages.length;
-        beamStatus.textContent = statusMessages[currentStatusIndex];
-        nextStatusChange = Date.now() + 2000 + (Math.random() * 1500);
+    // Update messages periodically
+    if (Date.now() > nextMessageChange && progress < 85) {
+        currentMessageIndex = (currentMessageIndex + 1) % thinkingMessages.length;
+        beamTitle.textContent = thinkingMessages[currentMessageIndex];
+        beamStatus.textContent = statusMessages[currentMessageIndex];
+        nextMessageChange = Date.now() + 2500 + (Math.random() * 1500);
     }
 
     // Smooth speed transitions
-    currentSpeed += (targetSpeed - currentSpeed) * 0.06;
+    const speedDiff = targetSpeed - currentSpeed;
+    currentSpeed += speedDiff * 0.07;
 
     // Update progress
     if (progress < 100) {
         progress += currentSpeed;
 
-        // Natural slowdown near end
-        if (progress > 88) {
-            currentSpeed *= 0.93;
+        // Natural slowdown near completion
+        if (progress > 87) {
+            currentSpeed *= 0.94;
         }
 
         if (progress >= 100) {
@@ -76,54 +87,71 @@ function animate() {
 }
 
 function updateUI() {
-    beamProgress.style.width = `${progress}%`;
-    claudeBeam.setAttribute('aria-valuenow', Math.floor(progress));
+    const percentage = Math.floor(progress);
+    beamFill.style.width = `${progress}%`;
+    beamPercentage.textContent = `${percentage}%`;
 
-    // Logo pulse based on speed
-    if (currentSpeed > 0.5) {
-        claudeLogo.classList.add('pulsing');
+    // Update ARIA for accessibility
+    anthropicBeam.setAttribute('aria-valuenow', percentage);
+
+    // Logo pulses faster during rapid processing
+    if (currentSpeed > 0.6) {
+        anthropicLogo.classList.add('fast-pulse');
     } else {
-        claudeLogo.classList.remove('pulsing');
+        anthropicLogo.classList.remove('fast-pulse');
     }
 }
 
 function completeAnimation() {
     cancelAnimationFrame(animationFrame);
-    beamStatus.textContent = "Complete";
-    claudeBeam.classList.remove('processing');
-    claudeBeam.classList.add('complete');
-    claudeLogo.classList.remove('pulsing');
+    beamTitle.textContent = "Claude has finished";
+    beamStatus.textContent = "Response ready";
+    anthropicBeam.classList.remove('processing');
+    anthropicBeam.classList.add('complete');
+    anthropicLogo.classList.remove('fast-pulse');
 
-    // Loop animation
+    // Loop after completion
     setTimeout(() => {
         resetAnimation();
         startAnimation();
-    }, 3000);
+    }, 3500);
 }
 
 function resetAnimation() {
     progress = 0;
-    currentSpeed = 0.3;
-    targetSpeed = 0.3;
-    currentStatusIndex = 0;
-    nextSpeedChange = Date.now() + 800;
-    nextStatusChange = Date.now() + 2500;
+    currentSpeed = 0.25;
+    targetSpeed = 0.25;
+    currentMessageIndex = 0;
+    nextSpeedChange = Date.now() + 1000;
+    nextMessageChange = Date.now() + 3000;
 
-    beamProgress.style.width = '0%';
-    beamStatus.textContent = "Thinking";
+    beamFill.style.width = '0%';
+    beamTitle.textContent = "Claude is thinking";
+    beamStatus.textContent = "Processing your request";
+    beamPercentage.textContent = '0%';
 
-    claudeBeam.classList.remove('complete');
-    claudeBeam.setAttribute('aria-valuenow', '0');
+    anthropicBeam.classList.remove('complete');
+    anthropicBeam.setAttribute('aria-valuenow', '0');
 }
 
 function startAnimation() {
-    claudeBeam.classList.add('processing');
+    anthropicBeam.classList.add('processing');
     animate();
 }
 
-// Start on load
+// Start animation on page load
 window.addEventListener('load', () => {
     setTimeout(() => {
         startAnimation();
-    }, 600);
+    }, 700);
+});
+
+// Keyboard accessibility - Space to restart
+document.addEventListener('keydown', (e) => {
+    if (e.code === 'Space') {
+        e.preventDefault();
+        cancelAnimationFrame(animationFrame);
+        resetAnimation();
+        startAnimation();
+    }
 });

@@ -3,33 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Claude Progress Beam</title>
+    <title>Anthropic Claude Progress</title>
+
+    <!-- Google Fonts: Poppins (sans) for headings, Lora (serif) for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Claude logo and progress beam -->
-    <div class="claude-container">
-        <!-- Claude Logo SVG -->
-        <div class="claude-logo">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="48" height="48" rx="12" fill="#D97757"/>
-                <path d="M24 12C17.373 12 12 17.373 12 24C12 30.627 17.373 36 24 36C27.975 36 31.487 34.042 33.594 31.094L30.562 29.062C29.062 30.562 26.656 31.5 24 31.5C19.858 31.5 16.5 28.142 16.5 24C16.5 19.858 19.858 16.5 24 16.5C26.656 16.5 29.062 17.438 30.562 18.938L33.594 16.906C31.487 13.958 27.975 12 24 12Z" fill="white"/>
+    <!-- Anthropic Claude container -->
+    <div class="anthropic-container">
+        <!-- Anthropic Logo -->
+        <div class="anthropic-logo">
+            <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="56" height="56" rx="14" fill="#d97757"/>
+                <path d="M28 14C20.268 14 14 20.268 14 28C14 35.732 20.268 42 28 42C32.637 42 36.735 39.716 39.193 36.276L35.656 33.739C33.906 35.489 31.098 36.5 28 36.5C23.029 36.5 19 32.471 19 28C19 23.529 23.029 19.5 28 19.5C31.098 19.5 33.906 20.511 35.656 22.261L39.193 19.724C36.735 16.284 32.637 14 28 14Z" fill="white"/>
             </svg>
         </div>
 
-        <!-- Progress beam -->
-        <div class="claude-beam" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <!-- Progress beam with Anthropic branding -->
+        <div class="anthropic-beam" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
             <div class="beam-container">
+                <h2 class="beam-title">Claude is thinking</h2>
                 <div class="beam-track">
-                    <div class="beam-progress"></div>
+                    <div class="beam-fill"></div>
                 </div>
-                <div class="beam-info">
-                    <span class="beam-status">Thinking</span>
-                    <span class="beam-dots">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </span>
+                <div class="beam-footer">
+                    <span class="beam-status">Processing your request</span>
+                    <span class="beam-percentage">0%</span>
                 </div>
             </div>
         </div>

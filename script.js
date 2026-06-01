@@ -9,7 +9,6 @@ const beamTitle = document.querySelector('.beam-title');
 const beamStatus = document.querySelector('.beam-status');
 const beamPercentage = document.querySelector('.beam-percentage');
 const anthropicBeam = document.querySelector('.anthropic-beam');
-const anthropicLogo = document.querySelector('.anthropic-logo');
 
 // Speed profiles for realistic AI processing
 const speedProfiles = [
@@ -93,13 +92,6 @@ function updateUI() {
 
     // Update ARIA for accessibility
     anthropicBeam.setAttribute('aria-valuenow', percentage);
-
-    // Logo pulses faster during rapid processing
-    if (currentSpeed > 0.6) {
-        anthropicLogo.classList.add('fast-pulse');
-    } else {
-        anthropicLogo.classList.remove('fast-pulse');
-    }
 }
 
 function completeAnimation() {
@@ -108,7 +100,6 @@ function completeAnimation() {
     beamStatus.textContent = "Response ready";
     anthropicBeam.classList.remove('processing');
     anthropicBeam.classList.add('complete');
-    anthropicLogo.classList.remove('fast-pulse');
 
     // Loop after completion
     setTimeout(() => {

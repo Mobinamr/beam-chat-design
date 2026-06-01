@@ -3,47 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beam Progress Design</title>
+    <title>Claude Progress Beam</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Core beam design centered -->
-    <div class="design-showcase">
-
-        <!-- Main beam component -->
-        <div id="progress-beam" class="progress-beam active">
-            <div class="beam-content">
-                <div class="beam-bar">
-                    <div class="beam-fill"></div>
-                </div>
-                <div class="beam-info">
-                    <span class="beam-percentage">0%</span>
-                    <span class="beam-time">Est. 45s</span>
-                </div>
+    <!-- Claude-style progress beam -->
+    <div class="claude-beam">
+        <div class="beam-container">
+            <div class="beam-track">
+                <div class="beam-progress"></div>
+            </div>
+            <div class="beam-details">
+                <span class="beam-status">Processing</span>
+                <span class="beam-percentage">0%</span>
             </div>
         </div>
-
-        <!-- Preview panel component -->
-        <div id="preview-panel" class="preview-panel">
-            <div class="preview-header">
-                <span>AI Processing</span>
-                <div class="preview-status">Active</div>
-            </div>
-            <div class="preview-content">
-                <div class="preview-message">
-                    <p class="preview-text"></p>
-                    <div class="preview-typing">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </div>
-            </div>
-            <div class="preview-footer">
-                <span class="preview-progress">0% Complete</span>
-            </div>
-        </div>
-
     </div>
 
     <script src="script.js"></script>

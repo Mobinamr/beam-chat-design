@@ -5,8 +5,8 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    font-family: 'Söhne', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #2b2420;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -14,282 +14,123 @@ body {
     overflow: hidden;
 }
 
-/* Design showcase container */
-.design-showcase {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 80px;
-}
-
-/* Progress beam - the main component */
-.progress-beam {
-    width: 320px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
+/* Claude-style progress beam */
+.claude-beam {
+    width: 400px;
+    background: #3e362f;
     border-radius: 12px;
-    padding: 16px 20px;
+    padding: 20px 24px;
     box-shadow:
-        0 10px 40px rgba(0, 0, 0, 0.2),
-        0 0 80px rgba(0, 122, 255, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-    animation: beamAppear 0.6s ease forwards;
-    animation-delay: 0.3s;
+        0 0 0 1px rgba(255, 255, 255, 0.05),
+        0 2px 4px rgba(0, 0, 0, 0.1),
+        0 8px 16px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease;
 }
 
-.progress-beam.active {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-}
-
-.beam-content {
+.beam-container {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
 }
 
-.beam-bar {
+/* Progress track */
+.beam-track {
     width: 100%;
-    height: 8px;
-    background: rgba(0, 0, 0, 0.08);
+    height: 4px;
+    background: rgba(216, 180, 134, 0.15);
     border-radius: 100px;
     overflow: hidden;
     position: relative;
 }
 
-.beam-bar::before {
+/* Progress fill with Claude's orange gradient */
+.beam-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #d97706, #ea9e53);
+    border-radius: 100px;
+    width: 0%;
+    position: relative;
+    transition: none;
+    box-shadow: 0 0 12px rgba(217, 119, 6, 0.4);
+}
+
+.beam-progress::after {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(90deg,
+    background: linear-gradient(
+        90deg,
         transparent 0%,
-        rgba(255, 255, 255, 0.2) 50%,
-        transparent 100%);
-    animation: shimmer 2s infinite;
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 100%
+    );
+    animation: shimmer 2s infinite linear;
+    opacity: 0.6;
 }
 
-.beam-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #007aff, #0051d5);
-    border-radius: 100px;
-    width: 0%;
-    position: relative;
-    box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
-    animation: fillProgress 4s ease-in-out infinite;
-}
-
-.beam-fill::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 4px;
-    height: 100%;
-    background: white;
-    border-radius: 100px;
-    opacity: 0.8;
-    animation: pulse 1s infinite;
-}
-
-.beam-info {
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    font-weight: 500;
-}
-
-.beam-percentage {
-    color: #007aff;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-}
-
-.beam-time {
-    color: #666;
-}
-
-/* Preview panel */
-.preview-panel {
-    position: absolute;
-    width: 400px;
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(20px);
-    border-radius: 16px;
-    box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.3),
-        0 0 100px rgba(0, 122, 255, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    transform: translateY(200px) scale(0.9);
-    opacity: 0;
-    animation: panelSlideIn 0.8s ease forwards;
-    animation-delay: 1s;
-    overflow: hidden;
-}
-
-.preview-header {
-    padding: 20px 24px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+/* Beam details */
+.beam-details {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.preview-header span {
-    font-weight: 600;
-    color: #1a1a1a;
-    font-size: 15px;
-}
-
-.preview-status {
-    font-size: 11px;
-    color: #007aff;
-    padding: 5px 10px;
-    background: linear-gradient(135deg, rgba(0, 122, 255, 0.1), rgba(0, 122, 255, 0.05));
-    border-radius: 20px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.preview-content {
-    padding: 24px;
-    height: 120px;
-}
-
-.preview-message {
-    background: linear-gradient(135deg, #f8f8f8, #f0f0f0);
-    padding: 16px;
-    border-radius: 12px;
-    position: relative;
-    overflow: hidden;
-}
-
-.preview-message::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg,
-        transparent 30%,
-        rgba(255, 255, 255, 0.5) 50%,
-        transparent 70%);
-    animation: wave 3s linear infinite;
-}
-
-.preview-text {
-    color: #333;
-    line-height: 1.6;
-    min-height: 24px;
-    position: relative;
-    z-index: 1;
-}
-
-.preview-typing {
-    display: flex;
-    gap: 5px;
-    position: relative;
-    z-index: 1;
-    margin-top: 8px;
-}
-
-.preview-typing span {
-    width: 8px;
-    height: 8px;
-    background: #007aff;
-    border-radius: 50%;
-    animation: typing 1.4s infinite;
-}
-
-.preview-typing span:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-.preview-typing span:nth-child(3) {
-    animation-delay: 0.4s;
-}
-
-.preview-footer {
-    padding: 16px 24px;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.02));
-    border-top: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-.preview-progress {
     font-size: 13px;
-    color: #666;
+    color: #d8b486;
+}
+
+.beam-status {
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    opacity: 0.9;
+}
+
+.beam-percentage {
     font-weight: 600;
+    color: #ea9e53;
+    font-variant-numeric: tabular-nums;
 }
 
 /* Animations */
-@keyframes beamAppear {
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
     to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateY(0);
     }
-}
-
-@keyframes panelSlideIn {
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-@keyframes fillProgress {
-    0% { width: 0%; }
-    25% { width: 25%; }
-    50% { width: 65%; }
-    80% { width: 85%; }
-    100% { width: 100%; }
 }
 
 @keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(200%); }
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 0.8; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.5); }
-}
-
-@keyframes typing {
-    0%, 60%, 100% {
-        opacity: 0.3;
-        transform: translateY(0);
+    0% {
+        transform: translateX(-100%);
     }
-    30% {
-        opacity: 1;
-        transform: translateY(-6px);
+    100% {
+        transform: translateX(200%);
     }
 }
 
-@keyframes wave {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+/* Pulsing glow effect when processing */
+@keyframes glow {
+    0%, 100% {
+        box-shadow:
+            0 0 0 1px rgba(255, 255, 255, 0.05),
+            0 2px 4px rgba(0, 0, 0, 0.1),
+            0 8px 16px rgba(0, 0, 0, 0.1),
+            0 0 30px rgba(217, 119, 6, 0.1);
+    }
+    50% {
+        box-shadow:
+            0 0 0 1px rgba(255, 255, 255, 0.05),
+            0 2px 4px rgba(0, 0, 0, 0.1),
+            0 8px 16px rgba(0, 0, 0, 0.1),
+            0 0 40px rgba(217, 119, 6, 0.2);
+    }
 }
 
-/* Hover effects */
-.progress-beam:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow:
-        0 15px 50px rgba(0, 0, 0, 0.25),
-        0 0 100px rgba(0, 122, 255, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    transition: all 0.3s ease;
-}
-
-.progress-beam:hover .beam-fill {
-    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.5);
+.claude-beam.processing {
+    animation: fadeIn 0.5s ease, glow 2s ease-in-out infinite;
 }

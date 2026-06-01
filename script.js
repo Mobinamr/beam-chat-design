@@ -1,106 +1,108 @@
-// Progress animation variables
+// Claude-style progress animation with random speed variations
 let progress = 0;
-let estimatedTime = 45;
-let progressInterval = null;
-let timeInterval = null;
+let animationFrame = null;
+let currentSpeed = 0.5;
+let targetSpeed = 0.5;
+let speedTransition = 0;
 
-const beamFill = document.querySelector('.beam-fill');
+const beamProgress = document.querySelector('.beam-progress');
 const beamPercentage = document.querySelector('.beam-percentage');
-const beamTime = document.querySelector('.beam-time');
-const previewProgress = document.querySelector('.preview-progress');
-const previewText = document.querySelector('.preview-text');
-const previewPanel = document.getElementById('preview-panel');
+const beamStatus = document.querySelector('.beam-status');
+const claudeBeam = document.querySelector('.claude-beam');
 
-// Sample text for preview animation
-const sampleText = "Processing your request with advanced AI algorithms...";
-let currentTextIndex = 0;
+// Speed profiles for different "thinking" phases
+const speedProfiles = [
+    { speed: 0.1, duration: 800 },   // Very slow - deep thinking
+    { speed: 0.3, duration: 600 },   // Slow - processing
+    { speed: 1.2, duration: 400 },   // Fast - quick processing
+    { speed: 0.05, duration: 1000 }, // Pause - contemplating
+    { speed: 0.8, duration: 500 },   // Medium fast
+    { speed: 0.4, duration: 700 },   // Medium slow
+];
 
-// Auto-start the animation loop
-function startAnimationCycle() {
-    resetAnimation();
-    startProgress();
+let nextSpeedChange = Date.now() + 1000;
+let currentProfile = speedProfiles[0];
 
-    // Restart cycle after completion
-    setTimeout(() => {
-        startAnimationCycle();
-    }, 6000);
+function animate() {
+    // Check if we need to change speed
+    if (Date.now() > nextSpeedChange && progress < 95) {
+        // Pick a random speed profile
+        currentProfile = speedProfiles[Math.floor(Math.random() * speedProfiles.length)];
+        targetSpeed = currentProfile.speed;
+        nextSpeedChange = Date.now() + currentProfile.duration + Math.random() * 500;
+    }
+
+    // Smooth speed transition
+    if (Math.abs(currentSpeed - targetSpeed) > 0.01) {
+        currentSpeed += (targetSpeed - currentSpeed) * 0.1;
+    }
+
+    // Update progress with current speed
+    if (progress < 100) {
+        progress += currentSpeed;
+
+        // Slow down approaching 100%
+        if (progress > 90) {
+            currentSpeed *= 0.95;
+        }
+
+        if (progress >= 100) {
+            progress = 100;
+            completeAnimation();
+        }
+
+        updateUI();
+    }
+
+    animationFrame = requestAnimationFrame(animate);
 }
 
-function startProgress() {
-    progressInterval = setInterval(() => {
-        if (progress < 100) {
-            // Smooth progress increment
-            const increment = Math.random() * 2 + 0.5;
-            progress = Math.min(progress + increment, 100);
-
-            updateProgress();
-            updatePreviewText();
-
-            if (progress >= 100) {
-                completeProgress();
-            }
-        }
-    }, 50);
-
-    // Update time countdown
-    timeInterval = setInterval(() => {
-        if (estimatedTime > 0) {
-            estimatedTime--;
-            beamTime.textContent = `Est. ${estimatedTime}s`;
-        }
-    }, 1000);
-}
-
-function updateProgress() {
+function updateUI() {
     const percentage = Math.floor(progress);
+    beamProgress.style.width = `${progress}%`;
     beamPercentage.textContent = `${percentage}%`;
-    previewProgress.textContent = `${percentage}% Complete`;
+
+    // Update status text based on progress
+    if (progress < 30) {
+        beamStatus.textContent = 'Analyzing';
+    } else if (progress < 60) {
+        beamStatus.textContent = 'Processing';
+    } else if (progress < 90) {
+        beamStatus.textContent = 'Generating';
+    } else if (progress < 100) {
+        beamStatus.textContent = 'Finalizing';
+    }
 }
 
-function updatePreviewText() {
-    const charCount = Math.floor((sampleText.length * progress) / 100);
-    previewText.textContent = sampleText.substring(0, charCount);
-}
+function completeAnimation() {
+    cancelAnimationFrame(animationFrame);
+    beamStatus.textContent = 'Complete';
+    claudeBeam.classList.remove('processing');
 
-function completeProgress() {
-    clearInterval(progressInterval);
-    clearInterval(timeInterval);
-
-    beamTime.textContent = 'Complete';
-    previewProgress.textContent = 'Processing Complete';
-
-    // Update status
-    const statusElement = document.querySelector('.preview-status');
-    statusElement.textContent = 'Complete';
-    statusElement.style.background = 'linear-gradient(135deg, rgba(0, 255, 122, 0.1), rgba(0, 255, 122, 0.05))';
-    statusElement.style.color = '#00c957';
-
-    // Hide typing indicators
-    document.querySelector('.preview-typing').style.opacity = '0';
+    // Reset after 2 seconds
+    setTimeout(() => {
+        resetAnimation();
+        startAnimation();
+    }, 2000);
 }
 
 function resetAnimation() {
     progress = 0;
-    estimatedTime = 45;
-    currentTextIndex = 0;
+    currentSpeed = 0.5;
+    targetSpeed = 0.5;
+    nextSpeedChange = Date.now() + 1000;
 
-    clearInterval(progressInterval);
-    clearInterval(timeInterval);
+    beamProgress.style.width = '0%';
+    beamPercentage.textContent = '0%';
+    beamStatus.textContent = 'Processing';
+}
 
-    // Reset UI
-    updateProgress();
-    beamTime.textContent = `Est. ${estimatedTime}s`;
-    previewText.textContent = '';
-
-    const statusElement = document.querySelector('.preview-status');
-    statusElement.textContent = 'Active';
-    statusElement.style.background = 'linear-gradient(135deg, rgba(0, 122, 255, 0.1), rgba(0, 122, 255, 0.05))';
-    statusElement.style.color = '#007aff';
-
-    document.querySelector('.preview-typing').style.opacity = '1';
+function startAnimation() {
+    claudeBeam.classList.add('processing');
+    animate();
 }
 
 // Start animation on load
 setTimeout(() => {
-    startAnimationCycle();
+    startAnimation();
 }, 500);

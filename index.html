@@ -3,28 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anthropic Progress Beam</title>
-
-    <!-- Google Fonts for Anthropic Typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
+    <title>Claude Progress Beam</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Anthropic-branded progress beam -->
-    <div class="anthropic-beam" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-        <div class="beam-container">
-            <div class="beam-header">
-                <span class="beam-label">Claude Processing</span>
-                <span class="beam-percentage" aria-live="polite">0%</span>
-            </div>
-            <div class="beam-track">
-                <div class="beam-progress"></div>
-            </div>
-            <div class="beam-status">
-                <span class="status-text">Initializing</span>
+    <!-- Claude logo and progress beam -->
+    <div class="claude-container">
+        <!-- Claude Logo SVG -->
+        <div class="claude-logo">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="48" height="48" rx="12" fill="#D97757"/>
+                <path d="M24 12C17.373 12 12 17.373 12 24C12 30.627 17.373 36 24 36C27.975 36 31.487 34.042 33.594 31.094L30.562 29.062C29.062 30.562 26.656 31.5 24 31.5C19.858 31.5 16.5 28.142 16.5 24C16.5 19.858 19.858 16.5 24 16.5C26.656 16.5 29.062 17.438 30.562 18.938L33.594 16.906C31.487 13.958 27.975 12 24 12Z" fill="white"/>
+            </svg>
+        </div>
+
+        <!-- Progress beam -->
+        <div class="claude-beam" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="beam-container">
+                <div class="beam-track">
+                    <div class="beam-progress"></div>
+                </div>
+                <div class="beam-info">
+                    <span class="beam-status">Thinking</span>
+                    <span class="beam-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </div>
             </div>
         </div>
     </div>

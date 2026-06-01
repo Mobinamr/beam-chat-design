@@ -1,48 +1,66 @@
-// Anthropic-branded progress animation with random speed variations
+// Claude-exact progress animation with random speed variations
 let progress = 0;
 let animationFrame = null;
-let currentSpeed = 0.3;
-let targetSpeed = 0.3;
+let currentSpeed = 0.2;
+let targetSpeed = 0.2;
 
 const beamProgress = document.querySelector('.beam-progress');
-const beamPercentage = document.querySelector('.beam-percentage');
-const statusText = document.querySelector('.status-text');
-const anthropicBeam = document.querySelector('.anthropic-beam');
+const beamStatus = document.querySelector('.beam-status');
+const claudeBeam = document.querySelector('.claude-beam');
+const claudeLogo = document.querySelector('.claude-logo');
 
-// Speed profiles mimicking Claude's thinking patterns
+// Speed profiles matching Claude's actual processing patterns
 const speedProfiles = [
-    { speed: 0.08, duration: 1200 },  // Very slow - deep analysis
-    { speed: 0.25, duration: 800 },   // Slow - careful processing
-    { speed: 0.95, duration: 400 },   // Fast burst - quick retrieval
-    { speed: 0.02, duration: 1500 },  // Near pause - contemplating
-    { speed: 0.6, duration: 600 },    // Medium - standard processing
-    { speed: 0.15, duration: 900 },   // Slow-medium - reasoning
-    { speed: 0.45, duration: 700 },   // Medium pace
-    { speed: 1.2, duration: 300 },    // Very fast - confident processing
+    { speed: 0.05, duration: 1500 },  // Very slow - deep thinking
+    { speed: 0.15, duration: 1000 },  // Slow - processing
+    { speed: 0.8, duration: 300 },    // Fast burst
+    { speed: 0.01, duration: 2000 },  // Almost stopped - contemplating
+    { speed: 0.4, duration: 700 },    // Medium speed
+    { speed: 0.1, duration: 1200 },   // Slow crawl
+    { speed: 1.0, duration: 200 },    // Very fast
+    { speed: 0.3, duration: 800 },    // Medium slow
 ];
 
-let nextSpeedChange = Date.now() + 800;
+let nextSpeedChange = Date.now() + 1000;
 let currentProfile = speedProfiles[Math.floor(Math.random() * speedProfiles.length)];
 
+// Status messages like Claude
+const statusMessages = [
+    "Thinking",
+    "Processing",
+    "Analyzing",
+    "Understanding",
+    "Generating response"
+];
+
+let currentStatusIndex = 0;
+let nextStatusChange = Date.now() + 2000;
+
 function animate() {
-    // Random speed changes for realistic AI processing
-    if (Date.now() > nextSpeedChange && progress < 92) {
+    // Change speed randomly
+    if (Date.now() > nextSpeedChange && progress < 95) {
         currentProfile = speedProfiles[Math.floor(Math.random() * speedProfiles.length)];
         targetSpeed = currentProfile.speed;
-        nextSpeedChange = Date.now() + currentProfile.duration + (Math.random() * 600);
+        nextSpeedChange = Date.now() + currentProfile.duration + (Math.random() * 500);
+    }
+
+    // Change status message periodically
+    if (Date.now() > nextStatusChange && progress < 90) {
+        currentStatusIndex = (currentStatusIndex + 1) % statusMessages.length;
+        beamStatus.textContent = statusMessages[currentStatusIndex];
+        nextStatusChange = Date.now() + 2000 + (Math.random() * 1000);
     }
 
     // Smooth speed transitions
-    const speedDiff = targetSpeed - currentSpeed;
-    currentSpeed += speedDiff * 0.08;
+    currentSpeed += (targetSpeed - currentSpeed) * 0.05;
 
     // Update progress
     if (progress < 100) {
         progress += currentSpeed;
 
-        // Natural slowdown near completion
-        if (progress > 88) {
-            currentSpeed *= 0.92;
+        // Slow down near completion
+        if (progress > 90) {
+            currentSpeed *= 0.9;
         }
 
         if (progress >= 100) {
@@ -57,74 +75,50 @@ function animate() {
 }
 
 function updateUI() {
-    const percentage = Math.floor(progress);
     beamProgress.style.width = `${progress}%`;
-    beamPercentage.textContent = `${percentage}%`;
+    claudeBeam.setAttribute('aria-valuenow', Math.floor(progress));
 
-    // Update ARIA attribute for accessibility
-    anthropicBeam.setAttribute('aria-valuenow', percentage);
-
-    // Status updates matching Anthropic's tone
-    if (progress < 15) {
-        statusText.textContent = 'Initializing';
-    } else if (progress < 35) {
-        statusText.textContent = 'Understanding';
-    } else if (progress < 55) {
-        statusText.textContent = 'Analyzing';
-    } else if (progress < 75) {
-        statusText.textContent = 'Processing';
-    } else if (progress < 90) {
-        statusText.textContent = 'Synthesizing';
-    } else if (progress < 100) {
-        statusText.textContent = 'Finalizing';
-    }
+    // Logo pulse intensity based on speed
+    const pulseIntensity = Math.min(currentSpeed * 2, 1);
+    claudeLogo.style.opacity = 0.8 + (pulseIntensity * 0.2);
 }
 
 function completeAnimation() {
     cancelAnimationFrame(animationFrame);
-    statusText.textContent = 'Complete';
-    anthropicBeam.classList.remove('processing');
-    anthropicBeam.classList.add('complete');
+    beamStatus.textContent = "Complete";
+    claudeBeam.classList.remove('processing');
+    claudeBeam.classList.add('complete');
 
-    // Loop animation after brief pause
+    // Loop after pause
     setTimeout(() => {
         resetAnimation();
         startAnimation();
-    }, 2500);
+    }, 3000);
 }
 
 function resetAnimation() {
     progress = 0;
-    currentSpeed = 0.3;
-    targetSpeed = 0.3;
-    nextSpeedChange = Date.now() + 800;
+    currentSpeed = 0.2;
+    targetSpeed = 0.2;
+    currentStatusIndex = 0;
+    nextSpeedChange = Date.now() + 1000;
+    nextStatusChange = Date.now() + 2000;
 
     beamProgress.style.width = '0%';
-    beamPercentage.textContent = '0%';
-    statusText.textContent = 'Initializing';
+    beamStatus.textContent = "Thinking";
 
-    anthropicBeam.classList.remove('complete');
-    anthropicBeam.setAttribute('aria-valuenow', '0');
+    claudeBeam.classList.remove('complete');
+    claudeBeam.setAttribute('aria-valuenow', '0');
 }
 
 function startAnimation() {
-    anthropicBeam.classList.add('processing');
+    claudeBeam.classList.add('processing');
     animate();
 }
 
-// Start on page load with slight delay for effect
+// Start on load
 window.addEventListener('load', () => {
     setTimeout(() => {
         startAnimation();
-    }, 400);
-});
-
-// Keyboard accessibility: Space to restart animation
-document.addEventListener('keydown', (e) => {
-    if (e.code === 'Space') {
-        e.preventDefault();
-        cancelAnimationFrame(animationFrame);
-        resetAnimation();
-        startAnimation();
-    }
+    }, 500);
 });

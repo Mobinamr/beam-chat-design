@@ -5,21 +5,21 @@
     box-sizing: border-box;
 }
 
-/* Anthropic Brand Colors */
+/* Claude exact theme colors */
 :root {
-    --anthropic-dark: #141413;
-    --anthropic-light: #faf9f5;
-    --anthropic-mid-gray: #b0aea5;
-    --anthropic-light-gray: #e8e6dc;
-    --anthropic-orange: #d97757;
-    --anthropic-blue: #6a9bcc;
-    --anthropic-green: #788c5d;
+    --claude-bg: #2b2a28;
+    --claude-card: #3e3832;
+    --claude-border: #53514c;
+    --claude-orange: #d97757;
+    --claude-text: #f5f3ef;
+    --claude-text-secondary: #c2beb6;
+    --claude-track: rgba(217, 119, 87, 0.2);
 }
 
 body {
-    /* Anthropic Typography: Inter for UI (sans-serif fallback) */
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--anthropic-light);
+    /* Exact Claude font stack */
+    font-family: 'Söhne', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: var(--claude-bg);
     height: 100vh;
     display: flex;
     align-items: center;
@@ -27,74 +27,47 @@ body {
     overflow: hidden;
 }
 
-/* Anthropic-branded progress beam */
-.anthropic-beam {
-    width: 420px;
-    background: white;
-    border-radius: 16px;
-    padding: 28px 32px;
-    box-shadow:
-        0 1px 2px rgba(20, 20, 19, 0.05),
-        0 4px 8px rgba(20, 20, 19, 0.08),
-        0 12px 24px rgba(20, 20, 19, 0.10);
-    border: 1px solid var(--anthropic-light-gray);
-    animation: fadeIn 0.6s ease;
-    position: relative;
+/* Container for logo and beam */
+.claude-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
 }
 
-.anthropic-beam::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 16px;
-    padding: 1px;
-    background: linear-gradient(135deg,
-        var(--anthropic-orange) 0%,
-        var(--anthropic-blue) 50%,
-        var(--anthropic-green) 100%);
-    -webkit-mask: linear-gradient(white 0 0) content-box,
-                  linear-gradient(white 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    animation: borderGlow 3s ease-in-out infinite;
+/* Claude Logo */
+.claude-logo {
+    animation: logoFadeIn 0.5s ease, logoPulse 2s ease-in-out infinite;
+}
+
+.claude-logo svg {
+    filter: drop-shadow(0 4px 12px rgba(217, 119, 87, 0.3));
+}
+
+/* Claude-style progress beam */
+.claude-beam {
+    width: 320px;
+    background: var(--claude-card);
+    border-radius: 12px;
+    padding: 20px 24px;
+    border: 1px solid var(--claude-border);
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.1),
+        0 4px 8px rgba(0, 0, 0, 0.15);
+    animation: beamFadeIn 0.6s ease 0.2s both;
 }
 
 .beam-container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-}
-
-/* Header with label and percentage */
-.beam-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-}
-
-.beam-label {
-    /* Serif for heading-like elements */
-    font-family: 'Crimson Text', Georgia, serif;
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--anthropic-dark);
-    letter-spacing: -0.01em;
-}
-
-.beam-percentage {
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--anthropic-orange);
-    font-variant-numeric: tabular-nums;
+    gap: 16px;
 }
 
 /* Progress track */
 .beam-track {
     width: 100%;
-    height: 6px;
-    background: var(--anthropic-light-gray);
+    height: 3px;
+    background: var(--claude-track);
     border-radius: 100px;
     overflow: hidden;
     position: relative;
@@ -103,16 +76,12 @@ body {
 /* Progress fill */
 .beam-progress {
     height: 100%;
-    background: linear-gradient(90deg,
-        var(--anthropic-orange) 0%,
-        var(--anthropic-orange) 40%,
-        var(--anthropic-blue) 70%,
-        var(--anthropic-green) 100%);
+    background: var(--claude-orange);
     border-radius: 100px;
     width: 0%;
     position: relative;
     transition: none;
-    box-shadow: 0 1px 4px rgba(217, 119, 87, 0.3);
+    box-shadow: 0 0 10px rgba(217, 119, 87, 0.5);
 }
 
 .beam-progress::after {
@@ -120,123 +89,133 @@ body {
     position: absolute;
     top: 0;
     right: 0;
-    width: 20px;
+    width: 30%;
     height: 100%;
     background: linear-gradient(90deg,
         transparent 0%,
-        rgba(255, 255, 255, 0.8) 100%);
-    border-radius: 100px;
+        rgba(255, 255, 255, 0.4) 100%);
     animation: shimmer 1.5s infinite;
 }
 
-/* Status text */
-.beam-status {
+/* Beam info */
+.beam-info {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.status-text {
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
+.beam-status {
+    font-size: 14px;
     font-weight: 500;
-    color: var(--anthropic-mid-gray);
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    transition: color 0.3s ease;
+    color: var(--claude-text-secondary);
+    letter-spacing: 0.01em;
+}
+
+/* Thinking dots animation */
+.beam-dots {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.beam-dots span {
+    width: 6px;
+    height: 6px;
+    background: var(--claude-orange);
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: dotPulse 1.4s ease-in-out infinite;
+}
+
+.beam-dots span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.beam-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.beam-dots span:nth-child(3) {
+    animation-delay: 0.4s;
 }
 
 /* Animations */
-@keyframes fadeIn {
+@keyframes logoFadeIn {
     from {
         opacity: 0;
-        transform: translateY(12px) scale(0.98);
+        transform: scale(0.8) translateY(-10px);
     }
     to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes logoPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes beamFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
 @keyframes shimmer {
-    0%, 100% {
-        opacity: 0.6;
-        transform: translateX(0);
+    0% {
+        transform: translateX(-100%);
     }
-    50% {
+    100% {
+        transform: translateX(300%);
+    }
+}
+
+@keyframes dotPulse {
+    0%, 80%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    40% {
         opacity: 1;
-        transform: translateX(-10px);
-    }
-}
-
-@keyframes borderGlow {
-    0%, 100% {
-        opacity: 0;
-    }
-    50% {
-        opacity: 0.15;
-    }
-}
-
-/* Processing state */
-.anthropic-beam.processing .beam-progress {
-    animation: progressPulse 2s ease-in-out infinite;
-}
-
-@keyframes progressPulse {
-    0%, 100% {
-        filter: brightness(1);
-    }
-    50% {
-        filter: brightness(1.1);
+        transform: scale(1.2);
     }
 }
 
 /* Complete state */
-.anthropic-beam.complete .status-text {
-    color: var(--anthropic-green);
+.claude-beam.complete .beam-status {
+    color: var(--claude-text);
 }
 
-.anthropic-beam.complete .beam-percentage {
-    color: var(--anthropic-green);
+.claude-beam.complete .beam-dots {
+    display: none;
 }
 
-/* WCAG AA Compliance Notes:
-   - Dark text (#141413) on light background (#faf9f5): contrast ratio 18.96:1 ✓
-   - Orange accent (#d97757) on white: contrast ratio 3.51:1 ✓ (for non-text elements)
-   - Mid gray (#b0aea5) on white: contrast ratio 2.01:1 (decorative/status text)
-   - Green (#788c5d) on white: contrast ratio 3.14:1 ✓
-*/
-
-/* Accessibility: Focus states */
-.anthropic-beam:focus-visible {
-    outline: 2px solid var(--anthropic-blue);
-    outline-offset: 4px;
+/* Processing glow effect */
+.claude-beam.processing {
+    animation: processingGlow 2s ease-in-out infinite;
 }
 
-/* Dark mode support (respects system preference) */
-@media (prefers-color-scheme: dark) {
-    body {
-        background: var(--anthropic-dark);
-    }
-
-    .anthropic-beam {
-        background: #1f1f1e;
-        border-color: #2a2a29;
+@keyframes processingGlow {
+    0%, 100% {
         box-shadow:
-            0 1px 2px rgba(0, 0, 0, 0.2),
-            0 4px 8px rgba(0, 0, 0, 0.25),
-            0 12px 24px rgba(0, 0, 0, 0.3);
+            0 1px 2px rgba(0, 0, 0, 0.1),
+            0 4px 8px rgba(0, 0, 0, 0.15),
+            0 0 20px rgba(217, 119, 87, 0);
     }
-
-    .beam-label {
-        color: var(--anthropic-light);
-    }
-
-    .beam-track {
-        background: #2a2a29;
-    }
-
-    .status-text {
-        color: #787773;
+    50% {
+        box-shadow:
+            0 1px 2px rgba(0, 0, 0, 0.1),
+            0 4px 8px rgba(0, 0, 0, 0.15),
+            0 0 30px rgba(217, 119, 87, 0.3);
     }
 }

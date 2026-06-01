@@ -1,8 +1,8 @@
-// Claude-exact progress animation with random speed variations
+// Claude light mode progress animation with random speed variations
 let progress = 0;
 let animationFrame = null;
-let currentSpeed = 0.2;
-let targetSpeed = 0.2;
+let currentSpeed = 0.3;
+let targetSpeed = 0.3;
 
 const beamProgress = document.querySelector('.beam-progress');
 const beamStatus = document.querySelector('.beam-status');
@@ -11,56 +11,57 @@ const claudeLogo = document.querySelector('.claude-logo');
 
 // Speed profiles matching Claude's actual processing patterns
 const speedProfiles = [
-    { speed: 0.05, duration: 1500 },  // Very slow - deep thinking
-    { speed: 0.15, duration: 1000 },  // Slow - processing
-    { speed: 0.8, duration: 300 },    // Fast burst
-    { speed: 0.01, duration: 2000 },  // Almost stopped - contemplating
-    { speed: 0.4, duration: 700 },    // Medium speed
-    { speed: 0.1, duration: 1200 },   // Slow crawl
-    { speed: 1.0, duration: 200 },    // Very fast
-    { speed: 0.3, duration: 800 },    // Medium slow
+    { speed: 0.08, duration: 1400 },  // Very slow - deep thinking
+    { speed: 0.2, duration: 1000 },   // Slow - careful processing
+    { speed: 1.0, duration: 400 },    // Fast burst - quick processing
+    { speed: 0.02, duration: 1800 },  // Almost paused - contemplating
+    { speed: 0.5, duration: 700 },    // Medium speed
+    { speed: 0.12, duration: 1100 },  // Slow-medium
+    { speed: 1.3, duration: 300 },    // Very fast burst
+    { speed: 0.35, duration: 800 },   // Medium-slow
+    { speed: 0.03, duration: 1500 },  // Very slow pause
 ];
 
-let nextSpeedChange = Date.now() + 1000;
+let nextSpeedChange = Date.now() + 800;
 let currentProfile = speedProfiles[Math.floor(Math.random() * speedProfiles.length)];
 
-// Status messages like Claude
+// Claude-like status messages
 const statusMessages = [
     "Thinking",
     "Processing",
     "Analyzing",
     "Understanding",
-    "Generating response"
+    "Generating"
 ];
 
 let currentStatusIndex = 0;
-let nextStatusChange = Date.now() + 2000;
+let nextStatusChange = Date.now() + 2500;
 
 function animate() {
-    // Change speed randomly
-    if (Date.now() > nextSpeedChange && progress < 95) {
+    // Random speed changes
+    if (Date.now() > nextSpeedChange && progress < 93) {
         currentProfile = speedProfiles[Math.floor(Math.random() * speedProfiles.length)];
         targetSpeed = currentProfile.speed;
-        nextSpeedChange = Date.now() + currentProfile.duration + (Math.random() * 500);
+        nextSpeedChange = Date.now() + currentProfile.duration + (Math.random() * 400);
     }
 
-    // Change status message periodically
-    if (Date.now() > nextStatusChange && progress < 90) {
+    // Change status message
+    if (Date.now() > nextStatusChange && progress < 85) {
         currentStatusIndex = (currentStatusIndex + 1) % statusMessages.length;
         beamStatus.textContent = statusMessages[currentStatusIndex];
-        nextStatusChange = Date.now() + 2000 + (Math.random() * 1000);
+        nextStatusChange = Date.now() + 2000 + (Math.random() * 1500);
     }
 
     // Smooth speed transitions
-    currentSpeed += (targetSpeed - currentSpeed) * 0.05;
+    currentSpeed += (targetSpeed - currentSpeed) * 0.06;
 
     // Update progress
     if (progress < 100) {
         progress += currentSpeed;
 
-        // Slow down near completion
-        if (progress > 90) {
-            currentSpeed *= 0.9;
+        // Natural slowdown near end
+        if (progress > 88) {
+            currentSpeed *= 0.93;
         }
 
         if (progress >= 100) {
@@ -78,9 +79,12 @@ function updateUI() {
     beamProgress.style.width = `${progress}%`;
     claudeBeam.setAttribute('aria-valuenow', Math.floor(progress));
 
-    // Logo pulse intensity based on speed
-    const pulseIntensity = Math.min(currentSpeed * 2, 1);
-    claudeLogo.style.opacity = 0.8 + (pulseIntensity * 0.2);
+    // Logo pulse based on speed
+    if (currentSpeed > 0.5) {
+        claudeLogo.classList.add('pulsing');
+    } else {
+        claudeLogo.classList.remove('pulsing');
+    }
 }
 
 function completeAnimation() {
@@ -88,8 +92,9 @@ function completeAnimation() {
     beamStatus.textContent = "Complete";
     claudeBeam.classList.remove('processing');
     claudeBeam.classList.add('complete');
+    claudeLogo.classList.remove('pulsing');
 
-    // Loop after pause
+    // Loop animation
     setTimeout(() => {
         resetAnimation();
         startAnimation();
@@ -98,11 +103,11 @@ function completeAnimation() {
 
 function resetAnimation() {
     progress = 0;
-    currentSpeed = 0.2;
-    targetSpeed = 0.2;
+    currentSpeed = 0.3;
+    targetSpeed = 0.3;
     currentStatusIndex = 0;
-    nextSpeedChange = Date.now() + 1000;
-    nextStatusChange = Date.now() + 2000;
+    nextSpeedChange = Date.now() + 800;
+    nextStatusChange = Date.now() + 2500;
 
     beamProgress.style.width = '0%';
     beamStatus.textContent = "Thinking";
@@ -120,5 +125,5 @@ function startAnimation() {
 window.addEventListener('load', () => {
     setTimeout(() => {
         startAnimation();
-    }, 500);
+    }, 600);
 });

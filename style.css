@@ -5,20 +5,20 @@
     box-sizing: border-box;
 }
 
-/* Claude exact theme colors */
+/* Claude light theme colors */
 :root {
-    --claude-bg: #2b2a28;
-    --claude-card: #3e3832;
-    --claude-border: #53514c;
-    --claude-orange: #d97757;
-    --claude-text: #f5f3ef;
-    --claude-text-secondary: #c2beb6;
-    --claude-track: rgba(217, 119, 87, 0.2);
+    --claude-bg: #fdfcfa;
+    --claude-card: #ffffff;
+    --claude-border: #e5e3df;
+    --claude-orange: #dc6b3d;
+    --claude-text: #2d2d2d;
+    --claude-text-secondary: #6e6d69;
+    --claude-track: #f0efec;
 }
 
 body {
     /* Exact Claude font stack */
-    font-family: 'Söhne', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
     background: var(--claude-bg);
     height: 100vh;
     display: flex;
@@ -32,41 +32,45 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 32px;
+    gap: 36px;
 }
 
 /* Claude Logo */
 .claude-logo {
-    animation: logoFadeIn 0.5s ease, logoPulse 2s ease-in-out infinite;
+    animation: logoFadeIn 0.5s ease;
+}
+
+.claude-logo svg rect {
+    fill: var(--claude-orange);
 }
 
 .claude-logo svg {
-    filter: drop-shadow(0 4px 12px rgba(217, 119, 87, 0.3));
+    filter: drop-shadow(0 2px 8px rgba(220, 107, 61, 0.15));
 }
 
 /* Claude-style progress beam */
 .claude-beam {
-    width: 320px;
+    width: 360px;
     background: var(--claude-card);
     border-radius: 12px;
-    padding: 20px 24px;
+    padding: 24px 28px;
     border: 1px solid var(--claude-border);
     box-shadow:
-        0 1px 2px rgba(0, 0, 0, 0.1),
-        0 4px 8px rgba(0, 0, 0, 0.15);
+        0 1px 3px rgba(0, 0, 0, 0.04),
+        0 4px 12px rgba(0, 0, 0, 0.06);
     animation: beamFadeIn 0.6s ease 0.2s both;
 }
 
 .beam-container {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 18px;
 }
 
 /* Progress track */
 .beam-track {
     width: 100%;
-    height: 3px;
+    height: 4px;
     background: var(--claude-track);
     border-radius: 100px;
     overflow: hidden;
@@ -81,7 +85,6 @@ body {
     width: 0%;
     position: relative;
     transition: none;
-    box-shadow: 0 0 10px rgba(217, 119, 87, 0.5);
 }
 
 .beam-progress::after {
@@ -89,12 +92,12 @@ body {
     position: absolute;
     top: 0;
     right: 0;
-    width: 30%;
+    width: 40%;
     height: 100%;
     background: linear-gradient(90deg,
         transparent 0%,
-        rgba(255, 255, 255, 0.4) 100%);
-    animation: shimmer 1.5s infinite;
+        rgba(255, 255, 255, 0.6) 100%);
+    animation: shimmer 2s infinite;
 }
 
 /* Beam info */
@@ -108,23 +111,23 @@ body {
     font-size: 14px;
     font-weight: 500;
     color: var(--claude-text-secondary);
-    letter-spacing: 0.01em;
+    letter-spacing: -0.01em;
 }
 
 /* Thinking dots animation */
 .beam-dots {
     display: flex;
-    gap: 4px;
+    gap: 5px;
     align-items: center;
 }
 
 .beam-dots span {
-    width: 6px;
-    height: 6px;
+    width: 7px;
+    height: 7px;
     background: var(--claude-orange);
     border-radius: 50%;
-    opacity: 0.3;
-    animation: dotPulse 1.4s ease-in-out infinite;
+    opacity: 0.2;
+    animation: dotPulse 1.5s ease-in-out infinite;
 }
 
 .beam-dots span:nth-child(1) {
@@ -132,18 +135,18 @@ body {
 }
 
 .beam-dots span:nth-child(2) {
-    animation-delay: 0.2s;
+    animation-delay: 0.15s;
 }
 
 .beam-dots span:nth-child(3) {
-    animation-delay: 0.4s;
+    animation-delay: 0.3s;
 }
 
 /* Animations */
 @keyframes logoFadeIn {
     from {
         opacity: 0;
-        transform: scale(0.8) translateY(-10px);
+        transform: scale(0.9) translateY(-8px);
     }
     to {
         opacity: 1;
@@ -151,19 +154,10 @@ body {
     }
 }
 
-@keyframes logoPulse {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-}
-
 @keyframes beamFadeIn {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(12px);
     }
     to {
         opacity: 1;
@@ -173,49 +167,64 @@ body {
 
 @keyframes shimmer {
     0% {
-        transform: translateX(-100%);
+        transform: translateX(-150%);
     }
     100% {
-        transform: translateX(300%);
+        transform: translateX(250%);
     }
 }
 
 @keyframes dotPulse {
     0%, 80%, 100% {
-        opacity: 0.3;
+        opacity: 0.2;
         transform: scale(1);
     }
     40% {
         opacity: 1;
-        transform: scale(1.2);
+        transform: scale(1.1);
     }
 }
 
 /* Complete state */
 .claude-beam.complete .beam-status {
     color: var(--claude-text);
+    font-weight: 600;
 }
 
 .claude-beam.complete .beam-dots {
     display: none;
 }
 
-/* Processing glow effect */
+/* Processing state - subtle shadow pulse */
 .claude-beam.processing {
-    animation: processingGlow 2s ease-in-out infinite;
+    animation: processingPulse 2.5s ease-in-out infinite;
 }
 
-@keyframes processingGlow {
+@keyframes processingPulse {
     0%, 100% {
         box-shadow:
-            0 1px 2px rgba(0, 0, 0, 0.1),
-            0 4px 8px rgba(0, 0, 0, 0.15),
-            0 0 20px rgba(217, 119, 87, 0);
+            0 1px 3px rgba(0, 0, 0, 0.04),
+            0 4px 12px rgba(0, 0, 0, 0.06);
     }
     50% {
         box-shadow:
-            0 1px 2px rgba(0, 0, 0, 0.1),
-            0 4px 8px rgba(0, 0, 0, 0.15),
-            0 0 30px rgba(217, 119, 87, 0.3);
+            0 1px 3px rgba(0, 0, 0, 0.04),
+            0 4px 16px rgba(0, 0, 0, 0.08);
     }
+}
+
+/* Logo pulse sync with progress */
+@keyframes logoPulse {
+    0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 2px 8px rgba(220, 107, 61, 0.15));
+    }
+    50% {
+        transform: scale(1.03);
+        filter: drop-shadow(0 3px 12px rgba(220, 107, 61, 0.25));
+    }
+}
+
+.claude-logo.pulsing {
+    animation: logoPulse 1.5s ease-in-out infinite;
 }

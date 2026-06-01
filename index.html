@@ -3,19 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Claude Progress Beam</title>
+    <title>Anthropic Progress Beam</title>
+
+    <!-- Google Fonts for Anthropic Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Claude-style progress beam -->
-    <div class="claude-beam">
+    <!-- Anthropic-branded progress beam -->
+    <div class="anthropic-beam" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
         <div class="beam-container">
+            <div class="beam-header">
+                <span class="beam-label">Claude Processing</span>
+                <span class="beam-percentage" aria-live="polite">0%</span>
+            </div>
             <div class="beam-track">
                 <div class="beam-progress"></div>
             </div>
-            <div class="beam-details">
-                <span class="beam-status">Processing</span>
-                <span class="beam-percentage">0%</span>
+            <div class="beam-status">
+                <span class="status-text">Initializing</span>
             </div>
         </div>
     </div>

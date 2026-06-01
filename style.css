@@ -58,6 +58,7 @@ body {
 }
 
 .progress-text {
+    font-family: 'Galaxie Copernicus', Georgia, serif;
     color: #dc6b3d;
     font-size: 14px;
     font-weight: 600;

@@ -3,42 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Claude Progress Design</title>
+    <title>Claude Progress Beam</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="light-mode">
-    <!-- Mode Toggle Button -->
-    <div class="toggle-container">
-        <button class="mode-toggle" onclick="toggleMode()">
-            <span class="toggle-track">
-                <span class="toggle-thumb"></span>
-            </span>
-            <span class="toggle-label light-label">Light</span>
-            <span class="toggle-label dark-label">Dark</span>
-        </button>
+<body>
+    <!-- Top-right progress indicator -->
+    <div class="progress-indicator" id="progressIndicator">
+        <div class="indicator-content">
+            <span class="progress-percentage">45%</span>
+            <span class="estimated-time">~30s</span>
+        </div>
+        <div class="progress-beam-small">
+            <div class="beam-fill-small" style="width: 45%"></div>
+        </div>
     </div>
 
-    <!-- Progress Cards -->
-    <div class="design-container">
-        <!-- Empty State -->
-        <div class="progress-card">
-            <div class="card-label">Empty State</div>
-            <div class="progress-bar">
-                <div class="progress-track">
-                    <div class="progress-fill" style="width: 0%"></div>
-                </div>
-                <span class="progress-text">0%</span>
-            </div>
+    <!-- Hover preview panel (slides from right) -->
+    <div class="preview-panel" id="previewPanel">
+        <div class="preview-header">
+            <span class="preview-title">Claude is processing</span>
+            <span class="preview-status">45% complete</span>
         </div>
-
-        <!-- Full State -->
-        <div class="progress-card">
-            <div class="card-label">Full State</div>
-            <div class="progress-bar">
-                <div class="progress-track">
-                    <div class="progress-fill" style="width: 100%"></div>
+        <div class="preview-body">
+            <div class="preview-message">
+                <p class="typing-text">Analyzing your request and generating a comprehensive response...</p>
+            </div>
+            <div class="progress-bar-preview">
+                <div class="progress-track-preview">
+                    <div class="progress-fill-preview" style="width: 45%"></div>
                 </div>
-                <span class="progress-text">100%</span>
+                <span class="time-remaining">Estimated: 30s remaining</span>
             </div>
         </div>
     </div>

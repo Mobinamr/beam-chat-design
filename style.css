@@ -1,15 +1,17 @@
 :root {
-  /* Accenten */
+  /* Light Mode Colors */
   --claude-accent:        #C15F3C;  /* Crail – signature terracotta */
   --claude-accent-light:  #D4A27F;  /* Anthropic clay */
-
-  /* Neutralen */
   --claude-bg:            #F4F3EE;  /* Pampas – warme achtergrond */
   --claude-surface:       #FFFFFF;  /* witte vlakken */
   --claude-muted:         #B1ADA1;  /* Cloudy – gedempt grijs */
-
-  /* Tekst */
   --claude-ink:           #191919;  /* bijna-zwart */
+
+  /* Dark Mode Colors */
+  --claude-dark-bg:       #1A1917;  /* Dark background */
+  --claude-dark-surface:  #2A2825;  /* Dark card */
+  --claude-dark-track:    #3A3633;  /* Dark track */
+  --claude-dark-muted:    #7A7569;  /* Dark muted text */
 }
 
 * {
@@ -20,63 +22,137 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--claude-bg);
+    background: #FFFFFF;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.main-container {
+    display: flex;
+    gap: 80px;
+    align-items: stretch;
+}
+
+.mode-section {
+    padding: 40px;
+    border-radius: 20px;
+}
+
+.mode-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Light Mode Styles */
+.light-mode {
+    background: var(--claude-bg);
+}
+
+.light-mode .mode-title {
+    color: var(--claude-ink);
+}
+
+.light-mode .progress-card {
+    background: var(--claude-surface);
+    border: 1px solid var(--claude-accent-light);
+}
+
+.light-mode .card-label {
+    color: var(--claude-muted);
+}
+
+.light-mode .progress-track {
+    background: var(--claude-bg);
+}
+
+.light-mode .progress-fill {
+    background: var(--claude-accent);
+}
+
+.light-mode .progress-text {
+    color: var(--claude-accent);
+}
+
+/* Dark Mode Styles */
+.dark-mode {
+    background: var(--claude-dark-bg);
+}
+
+.dark-mode .mode-title {
+    color: var(--claude-accent-light);
+}
+
+.dark-mode .progress-card {
+    background: var(--claude-dark-surface);
+    border: 1px solid var(--claude-dark-track);
+}
+
+.dark-mode .card-label {
+    color: var(--claude-dark-muted);
+}
+
+.dark-mode .progress-track {
+    background: var(--claude-dark-track);
+}
+
+.dark-mode .progress-fill {
+    background: var(--claude-accent);
+}
+
+.dark-mode .progress-text {
+    color: var(--claude-accent-light);
+}
+
+/* Shared Styles */
 .design-container {
     display: flex;
-    gap: 60px;
+    gap: 30px;
     align-items: center;
 }
 
 .progress-card {
-    background: var(--claude-surface);
-    border-radius: 16px;
-    padding: 32px;
-    width: 320px;
-    border: 1px solid var(--claude-accent-light);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    border-radius: 12px;
+    padding: 24px;
+    width: 240px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .card-label {
-    color: var(--claude-muted);
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .progress-bar {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
 }
 
 .progress-track {
     flex: 1;
-    height: 8px;
-    background: var(--claude-bg);
+    height: 6px;
     border-radius: 100px;
     overflow: hidden;
 }
 
 .progress-fill {
     height: 100%;
-    background: var(--claude-accent);
     border-radius: 100px;
-    transition: width 0.3s ease;
 }
 
 .progress-text {
     font-family: 'Galaxie Copernicus', Georgia, serif;
-    color: var(--claude-accent);
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
-    min-width: 35px;
+    min-width: 32px;
     text-align: right;
 }

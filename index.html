@@ -3,30 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Claude Progress Design</title>
+    <title>Claude Progress Design - Light & Dark</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="design-container">
-        <!-- Empty State -->
-        <div class="progress-card">
-            <div class="card-label">Empty State</div>
-            <div class="progress-bar">
-                <div class="progress-track">
-                    <div class="progress-fill" style="width: 0%"></div>
+    <div class="main-container">
+        <!-- Light Mode Section -->
+        <div class="mode-section light-mode">
+            <h2 class="mode-title">Light Mode</h2>
+
+            <div class="design-container">
+                <!-- Empty State -->
+                <div class="progress-card">
+                    <div class="card-label">Empty State</div>
+                    <div class="progress-bar">
+                        <div class="progress-track">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-text">0%</span>
+                    </div>
                 </div>
-                <span class="progress-text">0%</span>
+
+                <!-- Full State -->
+                <div class="progress-card">
+                    <div class="card-label">Full State</div>
+                    <div class="progress-bar">
+                        <div class="progress-track">
+                            <div class="progress-fill" style="width: 100%"></div>
+                        </div>
+                        <span class="progress-text">100%</span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Full State -->
-        <div class="progress-card">
-            <div class="card-label">Full State</div>
-            <div class="progress-bar">
-                <div class="progress-track">
-                    <div class="progress-fill" style="width: 100%"></div>
+        <!-- Dark Mode Section -->
+        <div class="mode-section dark-mode">
+            <h2 class="mode-title">Dark Mode</h2>
+
+            <div class="design-container">
+                <!-- Empty State -->
+                <div class="progress-card">
+                    <div class="card-label">Empty State</div>
+                    <div class="progress-bar">
+                        <div class="progress-track">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-text">0%</span>
+                    </div>
                 </div>
-                <span class="progress-text">100%</span>
+
+                <!-- Full State -->
+                <div class="progress-card">
+                    <div class="card-label">Full State</div>
+                    <div class="progress-bar">
+                        <div class="progress-track">
+                            <div class="progress-fill" style="width: 100%"></div>
+                        </div>
+                        <span class="progress-text">100%</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

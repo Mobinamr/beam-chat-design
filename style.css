@@ -1,17 +1,17 @@
 :root {
   /* Light Mode Colors */
-  --claude-accent:        #C15F3C;  /* Crail – signature terracotta */
-  --claude-accent-light:  #D4A27F;  /* Anthropic clay */
-  --claude-bg:            #F4F3EE;  /* Pampas – warme achtergrond */
-  --claude-surface:       #FFFFFF;  /* witte vlakken */
-  --claude-muted:         #B1ADA1;  /* Cloudy – gedempt grijs */
-  --claude-ink:           #191919;  /* bijna-zwart */
+  --claude-accent:        #C15F3C;
+  --claude-accent-light:  #D4A27F;
+  --claude-bg:            #F4F3EE;
+  --claude-surface:       #FFFFFF;
+  --claude-muted:         #B1ADA1;
+  --claude-ink:           #191919;
 
   /* Dark Mode Colors */
-  --claude-dark-bg:       #1A1917;  /* Dark background */
-  --claude-dark-surface:  #2A2825;  /* Dark card */
-  --claude-dark-track:    #3A3633;  /* Dark track */
-  --claude-dark-muted:    #7A7569;  /* Dark muted text */
+  --claude-dark-bg:       #1A1917;
+  --claude-dark-surface:  #2A2825;
+  --claude-dark-track:    #3A3633;
+  --claude-dark-muted:    #7A7569;
 }
 
 * {
@@ -22,105 +22,153 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #FFFFFF;
     height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.3s ease;
 }
 
-.main-container {
-    display: flex;
-    gap: 80px;
-    align-items: stretch;
-}
-
-.mode-section {
-    padding: 40px;
-    border-radius: 20px;
-}
-
-.mode-title {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 30px;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-/* Light Mode Styles */
-.light-mode {
+/* Light Mode */
+body.light-mode {
     background: var(--claude-bg);
 }
 
-.light-mode .mode-title {
-    color: var(--claude-ink);
-}
-
-.light-mode .progress-card {
+body.light-mode .progress-card {
     background: var(--claude-surface);
     border: 1px solid var(--claude-accent-light);
 }
 
-.light-mode .card-label {
+body.light-mode .card-label {
     color: var(--claude-muted);
 }
 
-.light-mode .progress-track {
+body.light-mode .progress-track {
     background: var(--claude-bg);
 }
 
-.light-mode .progress-fill {
+body.light-mode .progress-fill {
     background: var(--claude-accent);
 }
 
-.light-mode .progress-text {
+body.light-mode .progress-text {
     color: var(--claude-accent);
 }
 
-/* Dark Mode Styles */
-.dark-mode {
+/* Dark Mode */
+body.dark-mode {
     background: var(--claude-dark-bg);
 }
 
-.dark-mode .mode-title {
-    color: var(--claude-accent-light);
-}
-
-.dark-mode .progress-card {
+body.dark-mode .progress-card {
     background: var(--claude-dark-surface);
     border: 1px solid var(--claude-dark-track);
 }
 
-.dark-mode .card-label {
+body.dark-mode .card-label {
     color: var(--claude-dark-muted);
 }
 
-.dark-mode .progress-track {
+body.dark-mode .progress-track {
     background: var(--claude-dark-track);
 }
 
-.dark-mode .progress-fill {
+body.dark-mode .progress-fill {
     background: var(--claude-accent);
 }
 
-.dark-mode .progress-text {
+body.dark-mode .progress-text {
     color: var(--claude-accent-light);
 }
 
-/* Shared Styles */
+/* Toggle Button */
+.toggle-container {
+    margin-bottom: 40px;
+}
+
+.mode-toggle {
+    position: relative;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.toggle-track {
+    position: relative;
+    width: 56px;
+    height: 28px;
+    background: var(--claude-accent-light);
+    border-radius: 100px;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 22px;
+    height: 22px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.toggle-label {
+    font-size: 13px;
+    font-weight: 500;
+    transition: opacity 0.3s ease;
+}
+
+.light-label {
+    color: var(--claude-ink);
+}
+
+.dark-label {
+    color: var(--claude-dark-muted);
+    opacity: 0.4;
+}
+
+/* Dark mode toggle states */
+body.dark-mode .toggle-track {
+    background: var(--claude-dark-track);
+}
+
+body.dark-mode .toggle-thumb {
+    transform: translateX(28px);
+}
+
+body.dark-mode .light-label {
+    opacity: 0.4;
+    color: var(--claude-dark-muted);
+}
+
+body.dark-mode .dark-label {
+    opacity: 1;
+    color: var(--claude-accent-light);
+}
+
+/* Design Container */
 .design-container {
     display: flex;
-    gap: 30px;
+    gap: 40px;
     align-items: center;
 }
 
 .progress-card {
     border-radius: 12px;
-    padding: 24px;
-    width: 240px;
+    padding: 28px;
+    width: 280px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
 }
 
 .card-label {
@@ -129,12 +177,13 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 20px;
+    transition: color 0.3s ease;
 }
 
 .progress-bar {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
 }
 
 .progress-track {
@@ -142,17 +191,29 @@ body {
     height: 6px;
     border-radius: 100px;
     overflow: hidden;
+    transition: background-color 0.3s ease;
 }
 
 .progress-fill {
     height: 100%;
     border-radius: 100px;
+    transition: all 0.3s ease;
 }
 
 .progress-text {
     font-family: 'Galaxie Copernicus', Georgia, serif;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
-    min-width: 32px;
+    min-width: 35px;
     text-align: right;
+    transition: color 0.3s ease;
+}
+
+/* Hover effect for toggle */
+.mode-toggle:hover .toggle-track {
+    transform: scale(1.05);
+}
+
+.mode-toggle:active .toggle-track {
+    transform: scale(0.98);
 }

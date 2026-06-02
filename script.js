@@ -1,1 +1,12 @@
-// No animations - static design only
+// Toggle between light and dark mode
+function toggleMode() {
+    const body = document.body;
+
+    if (body.classList.contains('light-mode')) {
+        body.classList.remove('light-mode');
+        body.classList.add('dark-mode');
+    } else {
+        body.classList.remove('dark-mode');
+        body.classList.add('light-mode');
+    }
+}

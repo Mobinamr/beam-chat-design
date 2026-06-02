@@ -1,9 +1,16 @@
 :root {
+  /* Light Mode */
   --claude-accent: #C15F3C;
   --claude-bg: #F4F3EE;
   --claude-surface: #FFFFFF;
   --claude-muted: #B1ADA1;
   --claude-ink: #191919;
+
+  /* Dark Mode */
+  --claude-dark-bg: #1A1917;
+  --claude-dark-surface: #2A2825;
+  --claude-dark-track: #3A3633;
+  --claude-dark-muted: #7A7569;
 }
 
 * {
@@ -14,20 +21,83 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--claude-bg);
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+/* Light Mode */
+body.light-mode {
+    background: var(--claude-bg);
+}
+
+body.light-mode .progress-beam {
+    background: var(--claude-surface);
+}
+
+body.light-mode .beam-text {
+    color: var(--claude-ink);
+}
+
+body.light-mode .beam-track {
+    background: var(--claude-bg);
+}
+
+/* Dark Mode */
+body.dark-mode {
+    background: var(--claude-dark-bg);
+}
+
+body.dark-mode .progress-beam {
+    background: var(--claude-dark-surface);
+}
+
+body.dark-mode .beam-text {
+    color: var(--claude-bg);
+}
+
+body.dark-mode .beam-track {
+    background: var(--claude-dark-track);
+}
+
+/* Mode Toggle Button */
+.mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background: var(--claude-accent);
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(193, 95, 60, 0.3);
+    transition: all 0.3s ease;
+}
+
+.mode-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(193, 95, 60, 0.4);
+}
+
+.mode-toggle:active {
+    transform: scale(0.95);
 }
 
 /* Progress Beam Component */
 .progress-beam {
     width: 400px;
-    background: var(--claude-surface);
     border-radius: 12px;
     padding: 20px 24px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
 }
 
 .beam-info {
@@ -40,7 +110,7 @@ body {
 .beam-text {
     font-size: 14px;
     font-weight: 500;
-    color: var(--claude-ink);
+    transition: color 0.3s ease;
 }
 
 .beam-percentage {
@@ -52,9 +122,9 @@ body {
 
 .beam-track {
     height: 6px;
-    background: var(--claude-bg);
     border-radius: 100px;
     overflow: hidden;
+    transition: background-color 0.3s ease;
 }
 
 .beam-fill {

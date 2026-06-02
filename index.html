@@ -7,33 +7,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Top-right progress indicator -->
-    <div class="progress-indicator" id="progressIndicator">
-        <div class="indicator-content">
-            <span class="progress-percentage">45%</span>
-            <span class="estimated-time">~30s</span>
+    <!-- Progress Beam Component -->
+    <div class="progress-beam">
+        <div class="beam-info">
+            <span class="beam-text">Processing</span>
+            <span class="beam-percentage">45%</span>
         </div>
-        <div class="progress-beam-small">
-            <div class="beam-fill-small" style="width: 45%"></div>
-        </div>
-    </div>
-
-    <!-- Hover preview panel (slides from right) -->
-    <div class="preview-panel" id="previewPanel">
-        <div class="preview-header">
-            <span class="preview-title">Claude is processing</span>
-            <span class="preview-status">45% complete</span>
-        </div>
-        <div class="preview-body">
-            <div class="preview-message">
-                <p class="typing-text">Analyzing your request and generating a comprehensive response...</p>
-            </div>
-            <div class="progress-bar-preview">
-                <div class="progress-track-preview">
-                    <div class="progress-fill-preview" style="width: 45%"></div>
-                </div>
-                <span class="time-remaining">Estimated: 30s remaining</span>
-            </div>
+        <div class="beam-track">
+            <div class="beam-fill" style="width: 45%"></div>
         </div>
     </div>
 

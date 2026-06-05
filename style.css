@@ -38,7 +38,8 @@ body.light-mode .progress-beam {
 }
 
 body.light-mode .beam-text {
-    color: var(--claude-ink);
+    color: var(--claude-muted);
+    animation: fadeGrey 2s ease-in-out infinite;
 }
 
 body.light-mode .beam-track {
@@ -55,7 +56,8 @@ body.dark-mode .progress-beam {
 }
 
 body.dark-mode .beam-text {
-    color: var(--claude-bg);
+    color: var(--claude-dark-muted);
+    animation: fadeGreyDark 2s ease-in-out infinite;
 }
 
 body.dark-mode .beam-track {
@@ -132,4 +134,23 @@ body.dark-mode .beam-track {
     background: var(--claude-accent);
     border-radius: 100px;
     transition: width 0.3s ease;
+}
+
+/* Fade grey animations */
+@keyframes fadeGrey {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeGreyDark {
+    0%, 100% {
+        opacity: 0.4;
+    }
+    50% {
+        opacity: 0.8;
+    }
 }

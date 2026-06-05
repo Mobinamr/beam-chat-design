@@ -10,21 +10,8 @@ function toggleMode() {
     }
 }
 
-// Claude thinking messages
-const thinkingMessages = [
-    "Thinking",
-    "Analyzing",
-    "Understanding",
-    "Processing",
-    "Reasoning",
-    "Considering",
-    "Formulating",
-    "Generating"
-];
-
 // Simple progress animation
 let progress = 0;
-let currentMessageIndex = 0;
 
 function updateProgress() {
     const beamFill = document.querySelector('.beam-fill');
@@ -33,13 +20,6 @@ function updateProgress() {
 
     progress += Math.random() * 2 + 0.5;
 
-    // Change message every 20% progress
-    const newMessageIndex = Math.floor(progress / 15) % thinkingMessages.length;
-    if (newMessageIndex !== currentMessageIndex) {
-        currentMessageIndex = newMessageIndex;
-        beamText.textContent = thinkingMessages[currentMessageIndex];
-    }
-
     if (progress >= 100) {
         progress = 100;
         beamText.textContent = "Complete";
@@ -47,8 +27,7 @@ function updateProgress() {
 
         setTimeout(() => {
             progress = 0;
-            currentMessageIndex = 0;
-            beamText.textContent = thinkingMessages[0];
+            beamText.textContent = "Thinking";
             updateProgress();
             interval = setInterval(updateProgress, 100);
         }, 1000);

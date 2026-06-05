@@ -46,6 +46,10 @@ body.light-mode .beam-track {
     background: var(--claude-bg);
 }
 
+body.light-mode .beam-percentage {
+    color: var(--claude-ink);
+}
+
 /* Dark Mode */
 body.dark-mode {
     background: var(--claude-dark-bg);
@@ -62,6 +66,10 @@ body.dark-mode .beam-text {
 
 body.dark-mode .beam-track {
     background: var(--claude-dark-track);
+}
+
+body.dark-mode .beam-percentage {
+    color: var(--claude-surface);
 }
 
 /* Mode Toggle Button */
@@ -121,14 +129,6 @@ body.dark-mode .beam-track {
     font-size: 16px;
     font-weight: 700;
     transition: color 0.3s ease;
-}
-
-body.light-mode .beam-percentage {
-    color: var(--claude-ink);
-}
-
-body.dark-mode .beam-percentage {
-    color: var(--claude-bg);
 }
 
 .beam-track {

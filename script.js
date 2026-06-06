@@ -1,4 +1,3 @@
-// Toggle between light and dark mode
 function toggleMode() {
     const body = document.body;
     if (body.classList.contains('light-mode')) {
@@ -10,31 +9,28 @@ function toggleMode() {
     }
 }
 
-// Simple progress animation
 let progress = 0;
 
 function updateProgress() {
     const beamFill = document.querySelector('.beam-fill');
-    const beamPercentage = document.querySelector('.beam-percentage');
-    const beamText = document.querySelector('.beam-text');
+    const beamInfo = document.querySelector('.beam-info');
 
     progress += Math.random() * 2 + 0.5;
 
     if (progress >= 100) {
         progress = 100;
-        beamText.textContent = "Complete";
+        beamInfo.innerHTML = '<span class="beam-text complete">Complete <a href="https://claude.ai" class="beam-arrow" title="Return to Claude">›</a></span>';
         clearInterval(interval);
 
         setTimeout(() => {
             progress = 0;
-            beamText.textContent = "Thinking";
+            beamInfo.innerHTML = '<span class="beam-text">Thinking</span>';
             updateProgress();
             interval = setInterval(updateProgress, 100);
-        }, 1000);
+        }, 2000);
     }
 
     beamFill.style.width = `${progress}%`;
-    beamPercentage.textContent = `${Math.floor(progress)}%`;
 }
 
 let interval = setInterval(updateProgress, 100);

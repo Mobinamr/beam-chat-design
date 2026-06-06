@@ -1,12 +1,9 @@
 :root {
-  /* Light Mode */
   --claude-accent: #C15F3C;
   --claude-bg: #F4F3EE;
   --claude-surface: #FFFFFF;
   --claude-muted: #B1ADA1;
   --claude-ink: #191919;
-
-  /* Dark Mode */
   --claude-dark-bg: #1A1917;
   --claude-dark-surface: #2A2825;
   --claude-dark-track: #3A3633;
@@ -28,7 +25,6 @@ body {
     transition: background-color 0.3s ease;
 }
 
-/* Light Mode */
 body.light-mode {
     background: var(--claude-bg);
 }
@@ -39,6 +35,9 @@ body.light-mode .progress-beam {
 
 body.light-mode .beam-text {
     color: var(--claude-muted);
+}
+
+body.light-mode .beam-text:not(.complete) {
     animation: fadeGrey 2s ease-in-out infinite;
 }
 
@@ -46,11 +45,10 @@ body.light-mode .beam-track {
     background: var(--claude-bg);
 }
 
-body.light-mode .beam-percentage {
+body.light-mode .beam-arrow {
     color: var(--claude-ink);
 }
 
-/* Dark Mode */
 body.dark-mode {
     background: var(--claude-dark-bg);
 }
@@ -61,6 +59,9 @@ body.dark-mode .progress-beam {
 
 body.dark-mode .beam-text {
     color: var(--claude-dark-muted);
+}
+
+body.dark-mode .beam-text:not(.complete) {
     animation: fadeGreyDark 2s ease-in-out infinite;
 }
 
@@ -68,11 +69,10 @@ body.dark-mode .beam-track {
     background: var(--claude-dark-track);
 }
 
-body.dark-mode .beam-percentage {
+body.dark-mode .beam-arrow {
     color: var(--claude-surface);
 }
 
-/* Mode Toggle Button */
 .mode-toggle {
     position: fixed;
     top: 20px;
@@ -101,7 +101,6 @@ body.dark-mode .beam-percentage {
     transform: scale(0.95);
 }
 
-/* Progress Beam Component */
 .progress-beam {
     width: 400px;
     border-radius: 12px;
@@ -121,14 +120,23 @@ body.dark-mode .beam-percentage {
     font-family: 'Anthropic Sans', system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     font-size: 14px;
     font-weight: 500;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, opacity 0.5s ease;
 }
 
-.beam-percentage {
-    font-family: 'Anthropic Serif', Georgia, 'Times New Roman', Times, serif;
-    font-size: 16px;
-    font-weight: 700;
-    transition: color 0.3s ease;
+.beam-arrow {
+    font-family: 'Anthropic Sans', system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    line-height: 1;
+    margin-left: 2px;
+}
+
+.beam-arrow:hover {
+    transform: translateX(4px);
+    opacity: 0.7;
 }
 
 .beam-track {
@@ -145,7 +153,6 @@ body.dark-mode .beam-percentage {
     transition: width 0.3s ease;
 }
 
-/* Fade grey animations */
 @keyframes fadeGrey {
     0%, 100% {
         opacity: 0.5;

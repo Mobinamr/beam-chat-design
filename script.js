@@ -16,7 +16,7 @@ function replayProgress() {
     beamInfo.innerHTML = '<span class="beam-text">Thinking</span>';
     const beamFill = document.querySelector('.beam-fill');
     beamFill.style.width = '0%';
-    interval = setInterval(updateProgress, 100);
+    interval = setInterval(updateProgress, 16);
 }
 
 let progress = 0;
@@ -25,7 +25,7 @@ function updateProgress() {
     const beamFill = document.querySelector('.beam-fill');
     const beamInfo = document.querySelector('.beam-info');
 
-    progress += Math.random() * 2 + 0.5;
+    progress += 0.3;
 
     if (progress >= 100) {
         progress = 100;
@@ -36,11 +36,11 @@ function updateProgress() {
             progress = 0;
             beamInfo.innerHTML = '<span class="beam-text">Thinking</span>';
             updateProgress();
-            interval = setInterval(updateProgress, 100);
+            interval = setInterval(updateProgress, 16);
         }, 2000);
     }
 
     beamFill.style.width = `${progress}%`;
 }
 
-let interval = setInterval(updateProgress, 100);
+let interval = setInterval(updateProgress, 16);

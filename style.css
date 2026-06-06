@@ -178,7 +178,7 @@ body.dark-mode .beam-arrow {
     height: 100%;
     background: var(--claude-accent);
     border-radius: 100px;
-    transition: width 0.3s ease;
+    transition: none;
 }
 
 @keyframes fadeGrey {

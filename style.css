@@ -101,6 +101,34 @@ body.dark-mode .beam-arrow {
     transform: scale(0.95);
 }
 
+.replay-toggle {
+    position: fixed;
+    top: 20px;
+    right: 80px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background: var(--claude-accent);
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(193, 95, 60, 0.3);
+    transition: all 0.3s ease;
+}
+
+.replay-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(193, 95, 60, 0.4);
+}
+
+.replay-toggle:active {
+    transform: scale(0.95) rotate(180deg);
+}
+
 .progress-beam {
     width: 400px;
     border-radius: 12px;

@@ -9,6 +9,16 @@ function toggleMode() {
     }
 }
 
+function replayProgress() {
+    clearInterval(interval);
+    progress = 0;
+    const beamInfo = document.querySelector('.beam-info');
+    beamInfo.innerHTML = '<span class="beam-text">Thinking</span>';
+    const beamFill = document.querySelector('.beam-fill');
+    beamFill.style.width = '0%';
+    interval = setInterval(updateProgress, 100);
+}
+
 let progress = 0;
 
 function updateProgress() {
